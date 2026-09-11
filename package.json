@@ -15,11 +15,13 @@
     "lint": "eslint . --ext .ts,.tsx,.mjs --max-warnings 0",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "test:watch": "vitest",
     "qr:fixtures": "node scripts/qr-fixtures.mjs"
   },
   "dependencies": {
     "@zxing/browser": "0.1.5",
     "@zxing/library": "0.21.3",
+    "jsqr": "1.4.0",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },
@@ -30,6 +32,7 @@
     "@testing-library/user-event": "14.6.1",
     "@types/node": "22.15.30",
     "@types/pngjs": "6.0.5",
+    "@types/qrcode": "1.5.5",
     "@types/react": "18.3.23",
     "@types/react-dom": "18.3.7",
     "@typescript-eslint/eslint-plugin": "8.46.2",
