@@ -97,7 +97,13 @@ export function Root() {
 
   return (
     <Suspense fallback={<main className="root-landing">불러오는 중…</main>}>
-      <App key={impl.id} />
+      {impl.id === 'claude' ? (
+        <div className="claude-shell">
+          <App key={impl.id} />
+        </div>
+      ) : (
+        <App key={impl.id} />
+      )}
     </Suspense>
   )
 }

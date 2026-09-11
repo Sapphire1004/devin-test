@@ -1,6 +1,7 @@
-node_modules
-dist
-coverage
+node_modules/
+dist/
+coverage/
 *.local
+.env
 .DS_Store
 *.tsbuildinfo

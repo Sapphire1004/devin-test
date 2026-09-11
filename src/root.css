@@ -1,7 +1,12 @@
 /* Shared shell only. Implementation-specific styles live in each implementation folder. */
-*,
-*::before,
-*::after {
+.root-landing,
+.root-landing *,
+.root-landing *::before,
+.root-landing *::after,
+.claude-shell,
+.claude-shell *,
+.claude-shell *::before,
+.claude-shell *::after {
   box-sizing: border-box;
 }
 
@@ -12,7 +17,8 @@ body,
   min-height: 100%;
 }
 
-body {
+.root-landing,
+.claude-shell {
   font-family:
     system-ui,
     -apple-system,
