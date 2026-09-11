@@ -56,8 +56,8 @@ export function scanCard(card: Card, payload: string, now: string): ScanResult {
   return { kind: 'added', card: { ...card, visits: { ...card.visits, [spot.id]: now } }, spot };
 }
 
-export function visitTime(value: string): string {
-  return new Intl.DateTimeFormat('ko-KR', {
+export function visitTime(value: string, locale = 'ko-KR'): string {
+  return new Intl.DateTimeFormat(locale, {
     month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false,
   }).format(new Date(value));
 }

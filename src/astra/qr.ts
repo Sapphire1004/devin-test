@@ -1,18 +1,19 @@
 import { BrowserQRCodeReader, IScannerControls } from '@zxing/browser';
+import { Translate, translateKorean } from './i18n';
 
-export function cameraError(error: unknown): string {
+export function cameraError(error: unknown, t: Translate = translateKorean): string {
   if (error instanceof Error || error instanceof DOMException) {
     if (['NotAllowedError', 'PermissionDeniedError', 'SecurityError'].includes(error.name)) {
-      return '카메라 권한이 필요해요. 브라우저 설정에서 허용한 뒤 다시 시도하거나 QR 이미지를 업로드해 주세요.';
+      return t('cameraDenied');
     }
     if (['NotFoundError', 'DevicesNotFoundError'].includes(error.name)) {
-      return '카메라를 찾을 수 없어요. QR 이미지 업로드로 스탬프를 모을 수 있어요.';
+      return t('cameraNotFound');
     }
     if (['NotReadableError', 'TrackStartError'].includes(error.name)) {
-      return '카메라를 사용할 수 없어요. 다른 앱에서 사용 중인지 확인하고 다시 시도해 주세요.';
+      return t('cameraNotReadable');
     }
   }
-  return '카메라를 시작하지 못했어요. 다시 시도하거나 QR 이미지를 업로드해 주세요.';
+  return t('cameraFailed');
 }
 
 export async function startCamera(
@@ -57,15 +58,15 @@ export async function startCamera(
   }
 }
 
-export async function decodeImage(file: File): Promise<string> {
-  if (!file.type.startsWith('image/')) throw new Error('이미지 파일을 선택해 주세요. PNG, JPG, WebP를 권장합니다.');
-  if (file.size > 12 * 1024 * 1024) throw new Error('12MB 이하의 이미지를 선택해 주세요.');
+export async function decodeImage(file: File, t: Translate = translateKorean): Promise<string> {
+  if (!file.type.startsWith('image/')) throw new Error(t('imageInvalidType'));
+  if (file.size > 12 * 1024 * 1024) throw new Error(t('imageTooLarge'));
   const url = URL.createObjectURL(file);
   try {
     const result = await new BrowserQRCodeReader().decodeFromImageUrl(url);
     return result.getText();
   } catch {
-    throw new Error('QR을 읽지 못했어요. 코드 전체가 선명하게 보이는 이미지로 다시 시도해 주세요.');
+    throw new Error(t('imageNoQR'));
   } finally {
     URL.revokeObjectURL(url);
   }

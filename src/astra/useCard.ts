@@ -1,20 +1,22 @@
 import { useCallback, useRef, useState } from 'react';
+import { MessageKey, useAstraTranslation } from './i18n';
 import { Card, STORAGE_KEY, emptyCard, parseCard, scanCard } from './rally';
 
-function loadCard(): { card: Card; warning: string } {
+function loadCard(): { card: Card; warning: MessageKey | '' } {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return { card: emptyCard(), warning: '' };
     const card = parseCard(raw);
     return card
       ? { card, warning: '' }
-      : { card: emptyCard(), warning: '저장된 기록을 읽을 수 없어요. 참여하기를 누르면 새 카드로 시작합니다.' };
+      : { card: emptyCard(), warning: 'storageCorrupt' };
   } catch {
-    return { card: emptyCard(), warning: '브라우저 저장소를 사용할 수 없어요. 현재 화면에서만 기록이 유지됩니다.' };
+    return { card: emptyCard(), warning: 'storageUnavailable' };
   }
 }
 
 export function useCard() {
+  const { t } = useAstraTranslation();
   const [initial] = useState(loadCard);
   const [card, setCard] = useState(initial.card);
   const [warning, setWarning] = useState(initial.warning);
@@ -27,7 +29,7 @@ export function useCard() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
       setWarning('');
     } catch {
-      setWarning('기록을 저장하지 못했어요. 저장 공간과 브라우저 설정을 확인해 주세요. 새로고침하면 새 기록이 사라질 수 있습니다.');
+      setWarning('storageSaveFailed');
     }
   }, []);
 
@@ -49,10 +51,10 @@ export function useCard() {
       setWarning('');
       return true;
     } catch {
-      setWarning('기록을 삭제하지 못했어요. 브라우저 저장소 설정을 확인한 뒤 다시 시도해 주세요.');
+      setWarning('storageResetFailed');
       return false;
     }
   };
 
-  return { card, warning, join, scan, reset };
+  return { card, warning: warning ? t(warning) : '', join, scan, reset };
 }

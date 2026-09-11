@@ -12,7 +12,7 @@
   -webkit-font-smoothing: antialiased;
 }
 .app *, .app *::before, .app *::after { box-sizing: border-box; }
-.app button, .app input { font: inherit; }
+.app button, .app input, .app select { font: inherit; }
 .app button, .app a { -webkit-tap-highlight-color: transparent; }
 .app button { cursor: pointer; }
 .app a { color: inherit; }
@@ -28,7 +28,12 @@
 .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; font-size: 19px; font-weight: 800; letter-spacing: -.8px; }
 .brandMark { display: grid; place-items: center; width: 42px; height: 45px; background: var(--ink); color: var(--lime); border-radius: 12px 12px 12px 3px; transform: rotate(-7deg); }
 .brand > span:last-child > span { display: block; font-size: 9px; letter-spacing: 2.2px; margin-top: 3px; font-weight: 600; }
-.headerRight { display: flex; align-items: center; gap: 29px; }
+.headerRight { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.languageSelect { min-height: 44px; border: 1px solid var(--line); border-radius: 8px; background: #fffefa; color: var(--ink); padding: 8px; cursor: pointer; }
+.app[lang="ja"] { font-family: "Noto Sans CJK JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif; }
+.app[lang="ja"] .stampCard > p, .app[lang="ja"] .instructions p { word-break: normal; overflow-wrap: anywhere; }
+.app[lang="ja"] .hero h1 { font-size: clamp(30px, 4vw, 52px); letter-spacing: -1.5px; }
+.app[lang="ja"] .hero h1 > svg { display: none; }
 .edition { display: flex; align-items: center; gap: 7px; border: 1px solid #d9ddcd; padding: 7px 12px; border-radius: 24px; font-size: 9px; font-weight: 600; letter-spacing: 1.2px; }
 .edition > span, .heroKicker > span { width: 6px; height: 6px; border-radius: 50%; background: #598040; }
 .headerRight a { text-decoration: none; display: flex; align-items: center; gap: 8px; font-size: 12px; }
@@ -117,7 +122,7 @@
 .passportHeading svg { width: 21px; height: 21px; color: var(--lime); }
 .passportStatus { display: flex; align-items: center; gap: 6px; color: var(--lime); font-size: 11px; margin: 26px 0 12px; }
 .statusDot { width: 5px; height: 5px; background: var(--lime); border-radius: 50%; }
-.passport h2 { font-size: 27px; line-height: 1.4; letter-spacing: -1.2px; font-weight: 600; }
+.passport h2 { font-size: 27px; line-height: 1.4; letter-spacing: -1.2px; font-weight: 600; white-space: pre-line; }
 .passport > p { color: #b9c9b8; font-size: 12px; line-height: 1.8; white-space: pre-line; margin-top: 14px; }
 .progressNumbers { display: flex; align-items: end; justify-content: space-between; margin-top: 28px; }
 .progressNumbers > span { font-size: 11px; color: #d2dfc9; }
@@ -143,7 +148,7 @@
 .localNote { display: flex; align-items: start; gap: 9px; margin: 21px 7px 0; }
 .localNote > svg { width: 17px; height: 17px; flex-shrink: 0; color: #6b8158; }
 .localNote strong { font-weight: 500; font-size: 11px; }
-.localNote p { color: var(--muted); font-size: 11px; line-height: 1.8; margin-top: 5px; }
+.localNote p { color: var(--muted); font-size: 11px; line-height: 1.8; margin-top: 5px; white-space: pre-line; }
 .resetButton { display: flex; align-items: center; justify-content: center; gap: 6px; border: 0; background: transparent; margin: 17px auto 0; padding: 8px 16px; color: #6c7665; font-size: 11px !important; text-decoration: underline; text-underline-offset: 3px; min-height: 44px; }
 .resetButton svg { width: 13px; height: 13px; }
 .bottomNote { display: flex; justify-content: space-between; align-items: center; margin: 47px 0 0; padding: 24px 0; border-top: 1px solid var(--line); color: #748267; gap: 12px; }
@@ -214,13 +219,13 @@
   .heroFacts > span:last-child { padding-left: 10px; }
 }
 @media (max-width: 700px) {
-  .header { height: 80px; padding: 0 22px; }
+  .header { min-height: 80px; height: auto; padding: 16px 22px; flex-wrap: wrap; gap: 12px; }
   .brand { font-size: 17px; gap: 9px; }
   .brandMark { width: 35px; height: 38px; }
   .brandMark svg { width: 20px; }
   .brand > span:last-child > span { font-size: 7px; letter-spacing: 1.9px; }
   .headerRight { gap: 12px; }
-  .edition { font-size: 7px; padding: 6px 8px; letter-spacing: .6px; }
+  .edition { display: none; }
   .headerRight a { font-size: 10px; }
   .headerRight a svg { display: none; }
   .app main { padding: 0 22px; }
@@ -256,7 +261,7 @@
   .passport { padding: 22px; }
   .passportHeading { padding-bottom: 16px; }
   .passportStatus { margin-top: 18px; }
-  .passport h2 { font-size: 26px; }
+  .passport h2 { font-size: 26px; white-space: normal; }
   .passport h2 br { display: none; }
   .passport > p { font-size: 11px; }
   .progressNumbers { margin-top: 22px; }
@@ -264,7 +269,7 @@
   .passportPerforation { margin-top: 21px; }
   .localNote { margin-top: 15px; }
   .localNote p br { display: none; }
-  .localNote p { font-size: 11px; margin-top: 3px; }
+  .localNote p { font-size: 11px; margin-top: 3px; white-space: normal; }
   .localNote strong { font-size: 12px; }
   .resetButton { margin-top: 7px; }
   .sectionHeading { margin-bottom: 18px; }
