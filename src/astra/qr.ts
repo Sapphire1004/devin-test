@@ -1,7 +1,7 @@
 import { BrowserQRCodeReader, IScannerControls } from '@zxing/browser';
 
 export function cameraError(error: unknown): string {
-  if (error instanceof Error) {
+  if (error instanceof Error || error instanceof DOMException) {
     if (['NotAllowedError', 'PermissionDeniedError', 'SecurityError'].includes(error.name)) {
       return '카메라 권한이 필요해요. 브라우저 설정에서 허용한 뒤 다시 시도하거나 QR 이미지를 업로드해 주세요.';
     }

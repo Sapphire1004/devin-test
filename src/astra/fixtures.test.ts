@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { BinaryBitmap, HybridBinarizer, QRCodeReader, RGBLuminanceSource } from '@zxing/library';
 import { PNG } from 'pngjs';
 import { expect, it } from 'vitest';
@@ -15,7 +16,7 @@ it.each([
   ['other-event', 'other-rally:v1:spot-1', 'invalid'],
   ['extra-whitespace', 'stamprally:v1:spot-1 ', 'invalid'],
 ])('decodes actual PNG pixels and validates %s', (filename, payload, kind) => {
-  const png = PNG.sync.read(readFileSync(new URL(`../../fixtures/qr/${filename}.png`, import.meta.url)));
+  const png = PNG.sync.read(readFileSync(resolve('fixtures/qr', `${filename}.png`)));
   const pixels = new Uint8ClampedArray(png.width * png.height);
   for (let i = 0; i < pixels.length; i += 1) {
     const offset = i * 4;
