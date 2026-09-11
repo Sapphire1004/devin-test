@@ -13,6 +13,9 @@ const payloads = {
   unknown: 'stamprally:v1:spot-99',
   'other-event': 'other-rally:v1:spot-1',
   'extra-whitespace': 'stamprally:v1:spot-1 ',
+  'invalid-hello': 'hello',
+  'unknown-spot-99': 'stamprally:v1:spot-99',
+  'other-rally-spot-1': 'other-rally:v1:spot-1',
 };
 await Promise.all(Object.entries(payloads).map(([name, text]) =>
   QRCode.toFile(new URL(`${name}.png`, directory).pathname, text, {

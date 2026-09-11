@@ -1,0 +1,46 @@
+/* Shared shell only. Implementation-specific styles live in each implementation folder. */
+.root-landing,
+.root-landing *,
+.root-landing *::before,
+.root-landing *::after,
+.claude-shell,
+.claude-shell *,
+.claude-shell *::before,
+.claude-shell *::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+.root-landing,
+.claude-shell {
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    'Apple SD Gothic Neo',
+    'Noto Sans KR',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.root-landing {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 3rem 1.25rem;
+  line-height: 1.6;
+}
+
+.root-landing ul {
+  padding-left: 1.25rem;
+}
+
+.root-landing a {
+  color: #1d4ed8;
+}
